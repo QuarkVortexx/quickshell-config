@@ -1,52 +1,72 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import QtQuick.Layouts
+
+import "modules/bar"
 
 Scope {
-  id: root
-  property string time
+    id: root
+    property string time
 
-  Variants {
-    model: Quickshell.screens
+    Variants {
+        model: Quickshell.screens
 
-    PanelWindow {
-      color: "green"
-      required property var modelData
-      screen: modelData
+        PanelWindow {
+            required property var modelData
+            screen: modelData
 
-      anchors {
-        top: true
-        left: true
-        right: true
-      }
+            color: "#202020" // dark background
+            implicitHeight: 32
 
-      implicitHeight: 48
+            anchors {
+              top: true
+              left: true
+              right: true
+            }
 
-      Text {
-        anchors.centerIn: parent
-        text: root.time
-      }
+            // Main horizontal layout
+            RowLayout {
+                id: barLayout
+                anchors.fill: parent
+                anchors.margins: 5
+                spacing: 8
 
-      Loader {
-        source: "modules/bar/bar.qml"
-      }
+                // --- Bar Section (fills remaining space)
+                Bar {
+                    id: taskBar
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignVCenter
+                }
+
+                // --- Clock Section (right side)
+                Text {
+                    id: clockText
+                    text: root.time.trim()
+                    color: "white"
+                    font.pixelSize: 18
+                    Layout.alignment: Qt.AlignVCenter
+                }
+            }
+        }
     }
-  }
 
-  Process {
-    id: dateProc
-    command: ["date", "+%H:%M:%S"]
-    running: true
+    // --- Clock process ---
+    Process {
+        id: dateProc
+        command: ["date", "+%H:%M:%S"]
+        running: true
 
-    stdout: StdioCollector {
-      onStreamFinished: root.time = this.text
+        stdout: StdioCollector {
+            onStreamFinished: root.time = this.text
+        }
     }
-  }
 
-  Timer {
-    interval: 1000
-    running: true
-    repeat: true
-    onTriggered: dateProc.running = true
-  }
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: dateProc.running = true
+    }
 }

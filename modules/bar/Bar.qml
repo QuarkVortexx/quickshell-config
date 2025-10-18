@@ -1,6 +1,8 @@
+// modules/bar/bar.qml
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
+import "./TaskButton.qml"
 
 Item {
     id: root
@@ -22,35 +24,39 @@ Item {
 
     Connections {
         target: ToplevelManager.toplevels
-        function onValuesChanged() {
-            updateGrouping()
-        }
+        function onValuesChanged() { updateGrouping() }
     }
 
     Component.onCompleted: updateGrouping()
 
-    // --- Display ---
     Row {
-        spacing: 10
+        spacing: 8
 
         Repeater {
             model: Object.keys(root.groupedWindows)
+
             delegate: Row {
                 required property string modelData
                 property string appName: modelData
-
-                Text {
-                    text: `App: ${appName}`
-                    font.bold: true
-                    color: "cyan"
-                }
+                spacing: 4
 
                 Repeater {
                     model: root.groupedWindows[appName]
-                    delegate: Text {
-                        required property var modelData
-                        text: `  • ${modelData.title}`
-                        color: "lightgray"
+
+                    delegate: TaskButton {
+                        appName: appName
+                        title: modelData.title
+                        toplevel: modelData
+
+                        onClicked: (toplevel) => {
+                            console.log("Clicked:", appName, "-", toplevel.title)
+                            if (toplevel.activate)
+                                toplevel.activate()
+                            else if (toplevel.requestActivate)
+                                toplevel.requestActivate()
+                            else
+                                console.warn("No activation available for:", appName)
+                        }
                     }
                 }
             }
