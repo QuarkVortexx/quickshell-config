@@ -16,11 +16,11 @@ Scope {
             required property var modelData
             screen: modelData
 
-            color: "#202020" // dark background
-            implicitHeight: 32
+            color: "#2B2725" // dark background
+            implicitHeight: 46
 
             anchors {
-              top: true
+              bottom: true
               left: true
               right: true
             }
@@ -45,7 +45,7 @@ Scope {
                     id: clockText
                     text: root.time.trim()
                     color: "white"
-                    font.pixelSize: 18
+                    font.pixelSize: 14
                     Layout.alignment: Qt.AlignVCenter
                 }
             }

@@ -2,12 +2,17 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import "./TaskButton.qml"
 
 Item {
     id: root
 
     property var groupedWindows: ({})
+
+    // max width for a single button
+    property int maxButtonWidth: 150
+
+    // Computed width for all buttons
+    property real buttonWidth: maxButtonWidth
 
     function updateGrouping() {
         let map = {}
@@ -20,6 +25,18 @@ Item {
             map[appClass].push(top)
         }
         groupedWindows = map
+        updateButtonWidth()
+    }
+
+    function updateButtonWidth() {
+        let totalButtons = 0
+        for (let key in groupedWindows) totalButtons += groupedWindows[key].length
+
+        if (totalButtons === 0) return
+
+        let available = barRow.width - 25
+        let needed = totalButtons * maxButtonWidth
+        buttonWidth = (needed <= available) ? maxButtonWidth : (available / totalButtons)
     }
 
     Connections {
@@ -30,7 +47,9 @@ Item {
     Component.onCompleted: updateGrouping()
 
     Row {
-        spacing: 8
+        id: barRow
+        anchors.fill: parent
+        spacing: 2
 
         Repeater {
             model: Object.keys(root.groupedWindows)
@@ -38,28 +57,28 @@ Item {
             delegate: Row {
                 required property string modelData
                 property string appName: modelData
-                spacing: 4
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 2
 
                 Repeater {
                     model: root.groupedWindows[appName]
 
                     delegate: TaskButton {
-                        appName: appName
-                        title: modelData.title
                         toplevel: modelData
+                        width: root.buttonWidth
 
                         onClicked: (toplevel) => {
-                            console.log("Clicked:", appName, "-", toplevel.title)
                             if (toplevel.activate)
                                 toplevel.activate()
                             else if (toplevel.requestActivate)
                                 toplevel.requestActivate()
-                            else
-                                console.warn("No activation available for:", appName)
                         }
                     }
                 }
             }
         }
+
+        // Listen for width changes of the bar
+        onWidthChanged: updateButtonWidth()
     }
 }
