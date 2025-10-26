@@ -21,18 +21,31 @@ Rectangle {
     border.width: 1
     clip: true   // ensures text does not draw outside the rectangle
 
-    Text {
-        id: label
-        anchors.centerIn: parent
-        text: `${toplevel.appId} - ${toplevel.title}`
-        color: "white"
-        font.pixelSize: 10
-        horizontalAlignment: Text.AlignHLeft
-        verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideRight   // clips text with "…" if too long
-        anchors.leftMargin: 4
-        anchors.rightMargin: 4
-        anchors.fill: parent
+    Row {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 4
+        spacing: 8
+
+        Image {
+            id: icon
+            width: 24
+            height: 24
+            fillMode: Image.PreserveAspectFit
+            smooth: true
+            anchors.verticalCenter: parent.verticalCenter
+            source: "image://icon/" + toplevel.appId
+        }
+
+        Text {
+            id: label
+            text: `${toplevel.appId} - ${toplevel.title}`
+            color: "white"
+            font.pixelSize: 10
+            elide: Text.ElideRight
+            anchors.verticalCenter: parent.verticalCenter
+        }
     }
 
     MouseArea {
