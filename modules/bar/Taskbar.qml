@@ -1,4 +1,3 @@
-// modules/bar/bar.qml
 import Quickshell
 import Quickshell.Wayland
 import QtQuick

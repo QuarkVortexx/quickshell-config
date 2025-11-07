@@ -40,7 +40,7 @@ Rectangle {
 
         Text {
             id: label
-            text: `${toplevel.appId} - ${toplevel.title}`
+            text: `${toplevel.title}`
             color: "white"
             font.pixelSize: 10
             elide: Text.ElideRight
