@@ -33,7 +33,7 @@ Scope {
                 spacing: 8
 
                 // --- Bar Section (fills remaining space)
-                Bar {
+                Taskbar {
                     id: taskBar
                     Layout.fillWidth: true
                     Layout.fillHeight: true
