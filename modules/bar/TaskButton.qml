@@ -6,6 +6,14 @@ import Quickshell.Wayland
 Rectangle {
     id: root
     property var toplevel
+    property var buttonMaxWidth
+
+    property var totalMaxWidth: 150
+    property var buttonMargin: 6
+    property var buttonIconSize: 24
+
+    width: Math.min(Math.min(buttonMaxWidth, Math.max(row.implicitWidth, buttonIconSize + 15) + buttonMargin * 2), totalMaxWidth)
+    implicitWidth: width
 
     signal clicked(var toplevel)
 
@@ -33,6 +41,7 @@ Rectangle {
     }
 
     Row {
+        id: row
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: parent.right
@@ -42,12 +51,12 @@ Rectangle {
 
         Image {
             id: icon
-            width: 24
-            height: 24
+            width: buttonIconSize
+            height: buttonIconSize
             smooth: true
             anchors.verticalCenter: parent.verticalCenter
             source: iconPath
-            sourceSize: Qt.size(24, 24)
+            sourceSize: Qt.size(buttonIconSize, buttonIconSize)
             fillMode: Image.PreserveAspectFit
         }
 
