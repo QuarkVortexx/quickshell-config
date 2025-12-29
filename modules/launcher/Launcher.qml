@@ -9,9 +9,6 @@ import "../../util"
 PanelWindow {
     id: launcherWindow
 
-    required property var modelData
-    screen: modelData
-
     implicitWidth: 800
     implicitHeight: 300
     visible: StateStore.launcherOpen

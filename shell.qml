@@ -10,18 +10,12 @@ import "util"
 Scope {
     id: root
 
-    Variants {
-        model: Quickshell.screens
-
-        Bar {
-            modelData: modelData
-        }
-        
+    Bar {
+        modelData: modelData
     }
 
     Launcher {
         id: launcher
-        modelData: Quickshell.screens[0]
     }
 
     IpcHandler {

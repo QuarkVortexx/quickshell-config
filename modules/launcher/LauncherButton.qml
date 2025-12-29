@@ -16,8 +16,12 @@ Rectangle {
     signal clicked()
 
     onClicked: {
-        entry?.execute();
-        StateStore.launcherOpen = false;
+        if (entry?.runInTerminal && entry?.command) {
+            Quickshell.execDetached(["foot", "-e"].concat(entry.command))
+        } else {
+            entry?.execute()
+        }
+        StateStore.launcherOpen = false
     }
 
     MouseArea {

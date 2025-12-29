@@ -10,10 +10,10 @@ PanelWindow {
     screen: modelData
 
     color: "#2B2725" // dark background
-    implicitHeight: 46
+    implicitHeight: 30
 
     anchors {
-        bottom: true
+        top: true
         left: true
         right: true
     }
