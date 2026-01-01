@@ -1,3 +1,5 @@
+//@ pragma UseQApplication
+
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -10,12 +12,14 @@ import "util"
 Scope {
     id: root
 
-    Bar {
-        modelData: modelData
-    }
+    Bar { }
 
     Launcher {
         id: launcher
+    }
+
+    TrayPanel {
+        id: trayPanel
     }
 
     IpcHandler {

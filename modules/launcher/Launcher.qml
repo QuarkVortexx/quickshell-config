@@ -124,7 +124,7 @@ PanelWindow {
                 }
 
                 Component.onCompleted: {
-                    positionViewAtBeginning(ListView.Contain);
+                    positionViewAtBeginning();
                 }
             }
         }
@@ -145,7 +145,7 @@ PanelWindow {
                     }
 
                     if (listView) {
-                        listView.positionViewAtBeginning(ListView.Contain);
+                        listView.positionViewAtBeginning();
                     }
                 });
             }

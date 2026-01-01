@@ -6,9 +6,6 @@ import QtQuick.Layouts
 PanelWindow {
     id: root
 
-    required property var modelData
-    screen: modelData
-
     color: "#2B2725" // dark background
     implicitHeight: 30
 
@@ -28,6 +25,9 @@ PanelWindow {
         Taskbar {
             Layout.fillWidth: true
         }
+
+        // --- Tray button (right side)
+        TrayButton { }
 
         // --- Clock Section (right side)
         Clock { }
