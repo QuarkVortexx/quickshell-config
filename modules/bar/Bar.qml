@@ -29,6 +29,9 @@ PanelWindow {
         // --- Tray button (right side)
         TrayButton { }
 
+        // --- MicIndicator (right side)
+        SystemIndicators { }
+
         // --- Clock Section (right side)
         Clock { }
     }

@@ -22,6 +22,10 @@ Scope {
         id: trayPanel
     }
 
+    SystemPanel {
+        id: systemPanel
+    }
+
     IpcHandler {
         target: "launcher"
 
