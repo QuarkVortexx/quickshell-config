@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import "../../processes/time"
+
+import qs.util
 
 Item {
     id: root
@@ -9,7 +10,7 @@ Item {
 
     Text {
         id: clockText
-        text: Time.time
+        text: TimeService.format("hh:mm:ss")
         color: "white"
         font.pixelSize: 14
     }
