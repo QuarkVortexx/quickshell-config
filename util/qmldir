@@ -3,3 +3,4 @@ singleton StateStore StateStore.qml
 singleton AudioService AudioService.qml
 singleton TimeService TimeService.qml
 singleton NetworkService NetworkService.qml
+singleton BluetoothService BluetoothService.qml
