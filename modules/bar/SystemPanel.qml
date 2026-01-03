@@ -48,14 +48,63 @@ PanelWindow {
         anchors.fill: parent
         anchors.margins: 10
         spacing: 5
+
+        RowLayout {
+            id: wifiRow
+            spacing: 2
+
+            WifiButton { 
+                height: 36
+            }
+
+            Item {
+                id: wifiButton
+                width: 18
+                height: 18
+
+                rotation: 270
+
+                Rectangle {
+                    anchors.fill: parent
+                    radius: 3
+                    color: "#373533"
+                }
+
+                Shape {
+                    anchors.centerIn: parent
+                    width: 12
+                    height: 5
+
+                    ShapePath {
+                        fillColor: "white"
+                        strokeWidth: 0
+
+                        startX: 0; startY: 0
+                        PathLine { x: 10; y: 0 }
+                        PathLine { x: 5;  y: 6 }
+                        PathLine { x: 0;  y: 0 }
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: Quickshell.execDetached(["foot", "-e", "wlctl"])
+                }
+            }
+        }
         
-        Row {
+        RowLayout {
             id: audioRow
             spacing: 2
 
-            MicIndicator { }
+            MicIndicator { 
+                height: 36
+            }
 
-            VolumeIndicator { }
+            VolumeIndicator {
+                height: 36
+            }
 
             CustomSlider {
                 id: volumeSlider
@@ -63,6 +112,7 @@ PanelWindow {
                 onValueChanged: {
                     AudioService.setVolume(value)
                 }
+                height: 36
             }
 
             Item {

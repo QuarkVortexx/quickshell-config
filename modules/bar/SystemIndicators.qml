@@ -10,7 +10,7 @@ import qs.util
 
 Item {
     id: systemIndicators
-    width: 80
+    width: 104
     implicitHeight: indicatorRow.implicitHeight + indicatorRow.anchors.margin * 2
 
     RowLayout {
@@ -26,6 +26,8 @@ Item {
         VolumeIndicator {
             clickable: false;
         }
+
+        NetworkIndicator { }
     }
 
     // MouseArea only responds if clickable is true
