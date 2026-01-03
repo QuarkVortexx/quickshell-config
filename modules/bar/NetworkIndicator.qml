@@ -41,6 +41,6 @@ Item {
         }
         
         font.pixelSize: 15      
-        color: black
+        color: "black"
     }
 }

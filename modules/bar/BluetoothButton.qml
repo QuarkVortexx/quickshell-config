@@ -41,6 +41,6 @@ Item {
         text: bluetoothText
         
         font.pixelSize: 15      
-        color: black
+        color: "black"
     }
 }

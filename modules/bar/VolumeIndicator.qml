@@ -64,7 +64,7 @@ Item {
             }
             
             font.pixelSize: 15      
-            color: black
+            color: "black"
         }
         
         Text {
@@ -74,7 +74,7 @@ Item {
             font.pixelSize: 10
             font.weight: Font.Medium
             
-            color: black
+            color: "black"
         }
     }
 }

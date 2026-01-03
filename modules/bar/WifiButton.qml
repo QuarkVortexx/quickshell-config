@@ -40,6 +40,6 @@ Item {
         text: wifiText
         
         font.pixelSize: 15      
-        color: black
+        color: "black"
     }
 }
