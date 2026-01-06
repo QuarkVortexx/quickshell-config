@@ -10,13 +10,15 @@ import qs.util
 
 Item {
     id: systemIndicators
-    width: 104
-    implicitHeight: indicatorRow.implicitHeight + indicatorRow.anchors.margin * 2
+
+    implicitWidth: indicatorRow.implicitWidth + indicatorRow.anchors.margins * 2
+    implicitHeight: indicatorRow.implicitHeight + indicatorRow.anchors.margins * 2
+
+    width: implicitWidth
+    height: implicitHeight
 
     RowLayout {
         id: indicatorRow
-        anchors.fill: parent
-        anchors.centerIn: parent
         spacing: 3
 
         MicIndicator {
@@ -28,6 +30,8 @@ Item {
         }
 
         NetworkIndicator { }
+
+        BatteryIndicator { }
     }
 
     // MouseArea only responds if clickable is true

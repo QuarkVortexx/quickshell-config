@@ -12,9 +12,6 @@ Item {
     width: 24
     height: 18
 
-    // New property to control clickability
-    property bool clickable: true
-
     readonly property bool connected: NetworkService.connected
     readonly property int wifiSignal: NetworkService.wifiSignal
 
