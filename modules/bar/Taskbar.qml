@@ -122,7 +122,7 @@ Item {
         spacing: 2
 
         Repeater {
-            model: Object.keys(root.groupedWindows)
+            model: Object.keys(root.groupedWindows).sort()
 
             delegate: Row {
                 required property string modelData
