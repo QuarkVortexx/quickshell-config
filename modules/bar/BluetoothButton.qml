@@ -13,7 +13,7 @@ Item {
     readonly property bool bluetoothPowered: BluetoothService.powered;
     readonly property bool bluetoothConnected: BluetoothService.connected
 
-    readonly property string connectedString: BluetoothService.connectedCount === 1 ? "1 device" : `${BluetoothService.connectedCount} devuces`
+    readonly property string connectedString: BluetoothService.connectedCount === 1 ? "1 device" : `${BluetoothService.connectedCount} devices`
 
     readonly property string bluetoothText: bluetoothPowered ? bluetoothConnected ? `Connected: 󰂱 | ${connectedString}` : "Enabled: " : "Disabled: 󰂲"
 

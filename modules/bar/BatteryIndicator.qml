@@ -42,7 +42,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: height / 2
+        radius: 9
         color: batteryColor
     }
 

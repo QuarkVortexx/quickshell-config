@@ -50,6 +50,51 @@ PanelWindow {
         spacing: 5
 
         RowLayout {
+            id: batteryRow
+            spacing: 2
+
+            BatteryIndicator {
+                implicitHeight: 36
+                visible: true
+                Layout.fillWidth: true
+            }
+
+            Item {
+                id: batteryButton
+                width: 18
+                height: 18
+                rotation: 270
+
+                Rectangle {
+                    anchors.fill: parent
+                    radius: 3
+                    color: "#373533"
+                }
+
+                Shape {
+                    anchors.centerIn: parent
+                    width: 12
+                    height: 5
+
+                    ShapePath {
+                        fillColor: "white"
+                        strokeWidth: 0
+                        startX: 0; startY: 0
+                        PathLine { x: 10; y: 0 }
+                        PathLine { x: 5;  y: 6 }
+                        PathLine { x: 0;  y: 0 }
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: Quickshell.execDetached(["foot", "-e", "btop"])
+                }
+            }
+        }
+
+        RowLayout {
             id: wifiRow
             spacing: 2
 
