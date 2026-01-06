@@ -25,7 +25,7 @@ PanelWindow {
         right: 10
     }
 
-    implicitWidth: systemPanelColumn.implicitWidth + systemPanelColumn.anchors.margins * 2
+    implicitWidth: 350
     implicitHeight: systemPanelColumn.implicitHeight + systemPanelColumn.anchors.margins * 2
 
     Connections {
@@ -43,7 +43,7 @@ PanelWindow {
         border.width: 2
     }
 
-    Column {
+    ColumnLayout {
         id: systemPanelColumn
         anchors.fill: parent
         anchors.margins: 10
@@ -53,15 +53,15 @@ PanelWindow {
             id: wifiRow
             spacing: 2
 
-            WifiButton { 
+            WifiButton {
                 height: 36
+                Layout.fillWidth: true
             }
 
             Item {
                 id: wifiButton
                 width: 18
                 height: 18
-
                 rotation: 270
 
                 Rectangle {
@@ -78,7 +78,6 @@ PanelWindow {
                     ShapePath {
                         fillColor: "white"
                         strokeWidth: 0
-
                         startX: 0; startY: 0
                         PathLine { x: 10; y: 0 }
                         PathLine { x: 5;  y: 6 }
@@ -98,15 +97,15 @@ PanelWindow {
             id: bluetoothRow
             spacing: 2
 
-            BluetoothButton { 
+            BluetoothButton {
                 height: 36
+                Layout.fillWidth: true
             }
 
             Item {
                 id: bluetoothButton
                 width: 18
                 height: 18
-
                 rotation: 270
 
                 Rectangle {
@@ -123,7 +122,6 @@ PanelWindow {
                     ShapePath {
                         fillColor: "white"
                         strokeWidth: 0
-
                         startX: 0; startY: 0
                         PathLine { x: 10; y: 0 }
                         PathLine { x: 5;  y: 6 }
@@ -138,33 +136,25 @@ PanelWindow {
                 }
             }
         }
-        
+
         RowLayout {
-            id: audioRow
+            id: buttonsRow
             spacing: 2
 
-            MicIndicator { 
-                height: 36
-            }
-
-            VolumeIndicator {
-                height: 36
-            }
-
-            CustomSlider {
-                id: volumeSlider
-                value: AudioService.volume
-                onValueChanged: {
-                    AudioService.setVolume(value)
+                MicIndicator {
+                    height: 36
+                    Layout.fillWidth: true
                 }
-                height: 36
-            }
+
+                VolumeIndicator {
+                    height: 36
+                    Layout.fillWidth: true
+                }
 
             Item {
                 id: wiremixButton
                 width: 18
                 height: 18
-
                 rotation: 270
 
                 Rectangle {
@@ -181,7 +171,6 @@ PanelWindow {
                     ShapePath {
                         fillColor: "white"
                         strokeWidth: 0
-
                         startX: 0; startY: 0
                         PathLine { x: 10; y: 0 }
                         PathLine { x: 5;  y: 6 }
@@ -193,6 +182,21 @@ PanelWindow {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: Quickshell.execDetached(["foot", "-e", "wiremix"])
+                }
+            }
+        }
+
+        RowLayout {
+            id: sliderRow
+            spacing: 2
+
+            CustomSlider {
+                id: volumeSlider
+                value: AudioService.volume
+                height: 36
+                Layout.fillWidth: true
+                onValueChanged: {
+                    AudioService.setVolume(value)
                 }
             }
         }
@@ -213,5 +217,4 @@ PanelWindow {
             StateStore.systemPanelOpen = false;
         }
     }
-
 }

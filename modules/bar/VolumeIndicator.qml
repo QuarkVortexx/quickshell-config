@@ -8,8 +8,7 @@ import qs.util
 
 Item {
     id: volumeIndicator
-    // implicitWidth: volumeRow.implicitWidth + volumeRow.anchors.margins * 2
-    width: 54
+    implicitWidth: clickable ? 24 : volumeRow.implicitWidth + volumeRow.anchors.margins*2
     height: 18
 
     readonly property bool isReady: AudioService.sinkReady
