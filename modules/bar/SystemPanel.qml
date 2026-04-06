@@ -245,6 +245,10 @@ PanelWindow {
                 }
             }
         }
+
+        NotificationPanel {
+            Layout.fillWidth: true
+        }
     }
 
     Connections {

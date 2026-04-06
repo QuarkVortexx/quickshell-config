@@ -32,6 +32,8 @@ Item {
         NetworkIndicator { }
 
         BatteryIndicator { }
+
+        NotificationIndicator { }
     }
 
     // MouseArea only responds if clickable is true
