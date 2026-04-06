@@ -8,6 +8,8 @@ import Quickshell.Services.Pipewire
 
 import qs.util
 
+import "indicators"
+
 Item {
     id: systemIndicators
 

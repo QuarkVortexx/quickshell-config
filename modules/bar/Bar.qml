@@ -6,6 +6,7 @@ import QtQuick.Layouts
 import "taskbar"
 import "tray"
 import "system_indicators"
+import "system_indicators/system_panel"
 import "clock"
 
 import qs.util

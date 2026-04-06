@@ -9,6 +9,9 @@ import QtQuick.Shapes
 
 import qs.util
 
+import "../indicators"
+import "buttons"
+
 PopupWindow {
     id: systemPanel
 
@@ -222,6 +225,7 @@ PopupWindow {
 
             CustomSlider {
                 id: volumeSlider
+                icon: ""
                 value: AudioService.volume
                 height: 36
                 Layout.fillWidth: true

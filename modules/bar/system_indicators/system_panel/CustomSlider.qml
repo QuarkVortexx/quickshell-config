@@ -10,9 +10,11 @@ Item {
     property real value: 0     // 0–1 normalized
     signal sliderValueChanged(real newValue)
 
+    property string icon: ""; // optional icon name to display on the left side of the slider
+
     Rectangle { // background track
         anchors.fill: parent
-        color: Colors.md3.primary_container
+        color: Qt.darker(Colors.md3.primary, 1.5)
     }
 
     Rectangle { // filled portion
@@ -20,6 +22,16 @@ Item {
         height: parent.height
         width: parent.width * value
         color: Colors.md3.primary
+    }
+
+    Text {
+        text: icon
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.leftMargin: 10
+        color: Colors.md3.on_primary
+        font.pixelSize: 14
+        font.bold: true
     }
 
     MouseArea { // handle clicks and drags
