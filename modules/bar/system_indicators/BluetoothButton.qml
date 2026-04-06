@@ -30,8 +30,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
-        color: bluetoothPowered ? bluetoothConnected ? "#00ff00" : "#ff0" : "#ff0000"
+        color: bluetoothPowered ? bluetoothConnected ? Colors.md3.primary : Colors.md3.tertiary : Colors.md3.error
     }
 
     Text {
@@ -41,6 +40,6 @@ Item {
         text: bluetoothText
         
         font.pixelSize: 15      
-        color: "black"
+        color: bluetoothPowered ? bluetoothConnected ? Colors.md3.on_primary : Colors.md3.on_tertiary : Colors.md3.on_error
     }
 }

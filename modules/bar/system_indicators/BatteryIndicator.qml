@@ -4,15 +4,17 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.UPower
 
+import qs.util
+
 Item {
     id: batteryIndicator
 
     readonly property var device: UPower.displayDevice
-    visible: UPower.onBattery && device && device.ready
+    visible: true // UPower.onBattery && device && device.ready
 
     // Layout-friendly sizing
     implicitWidth: contentRow.implicitWidth + 10
-    implicitHeight: 18
+    implicitHeight: 24
     width: implicitWidth
     height: implicitHeight
 
@@ -25,11 +27,20 @@ Item {
 
     readonly property color batteryColor: {
         if (percentage <= lowThreshold)
-            return "#ff0000"   // red
+            return Colors.md3.error
         else if (percentage <= mediumThreshold)
-            return "#ff0"   // yellow
+            return Colors.md3.tertiary
         else
-            return "#00ff00"   // green
+            return Colors.md3.primary
+    }
+
+    readonly property color textColor: {
+        if (percentage <= lowThreshold)
+            return Colors.md3.on_error
+        else if (percentage <= mediumThreshold)
+            return Colors.md3.on_tertiary
+        else
+            return Colors.md3.on_primary
     }
 
     readonly property string batteryIcon: {
@@ -42,7 +53,6 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
         color: batteryColor
     }
 
@@ -55,14 +65,14 @@ Item {
         Text {
             text: batteryIcon
             font.pixelSize: 14
-            color: "black"
+            color: textColor
         }
 
         Text {
             text: percentage
             font.pixelSize: 10
             font.weight: Font.Medium
-            color: "black"
+            color: textColor
         }
     }
 }

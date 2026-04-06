@@ -5,20 +5,19 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Services.SystemTray
 
-import "../../util"
+import qs.util
 
 Item {
     id: trayButton
-    width: 18
-    height: 18
+    implicitWidth: parent.implicitHeight
+    implicitHeight: parent.implicitHeight
     visible: SystemTray?.items?.values?.length > 0
 
     rotation: StateStore.trayOpen ? 180 : 0
 
     Rectangle {
         anchors.fill: parent
-        radius: 3
-        color: "#373533"
+        color: mouseArea.containsMouse ? Qt.lighter(Colors.palette.primary40, 1.1) : Colors.palette.primary40
     }
 
     Shape {
@@ -38,8 +37,10 @@ Item {
     }
 
     MouseArea {
+        id: mouseArea
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         onClicked: StateStore.trayOpen = !StateStore.trayOpen
+        hoverEnabled: true
     }
 }

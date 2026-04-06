@@ -2,33 +2,31 @@
 import QtQuick
 import Quickshell 
 import Quickshell.Wayland
+import qs.util
 
 Rectangle {
     id: root
     property var toplevel
     property var buttonMaxWidth
 
-    property var totalMaxWidth: 150
-    property var buttonMargin: 6
-    property var buttonIconSize: 21
+    implicitHeight: parent.height
 
-    width: Math.min(Math.min(buttonMaxWidth, Math.max(row.implicitWidth, buttonIconSize + 15) + buttonMargin * 2), totalMaxWidth)
+    property var totalMaxWidth: implicitHeight * 5
+    property var buttonMargin: implicitHeight / 5
+    property var buttonIconSize: implicitHeight - buttonMargin * 1.5
+
+    width: Math.min(Math.min(buttonMaxWidth, Math.max(row.implicitWidth, buttonIconSize + implicitHeight / 2) + buttonMargin * 2), totalMaxWidth)
     implicitWidth: width
 
     signal clicked(var toplevel)
 
-    height: 25
-    radius: 3
+    color: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? Qt.lighter(Colors.md3.primary_container, 1.15) : Qt.lighter(Colors.md3.secondary_container, 1.15)) 
+        : (toplevel?.activated ? Qt.darker(Colors.md3.primary_container, 1.15) : Qt.darker(Colors.md3.secondary_container, 1.15))) 
+            : (toplevel?.activated ? Colors.md3.primary_container : "transparent")
 
-    color: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? "#322F2D" : "#322F2E") 
-        : (toplevel?.activated ? "#3B3835" : "#373432")) 
-            : (toplevel?.activated ? "#373533" : "transparent")
-
-    border.color: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? "transparent" : "transparent") 
-        : (toplevel?.activated ? "transparent" : "transparent")) 
-            : (toplevel?.activated ? "#373533" : "transparent")
-
-    border.width: 1
+    property var textColor: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? Qt.lighter(Colors.md3.on_primary_container, 1.15) : Qt.lighter(Colors.md3.on_secondary_container, 1.15)) 
+        : (toplevel?.activated ? Qt.darker(Colors.md3.on_primary_container, 1.15) : Qt.darker(Colors.md3.on_secondary_container, 1.15))) 
+            : (toplevel?.activated ? Colors.md3.on_primary_container : Colors.md3.on_surface)
 
     property var entry: DesktopEntries.heuristicLookup(toplevel?.appId)
     property var iconPath: Quickshell.iconPath(entry?.icon ?? "application-x-generic") // default icon not always found?
@@ -45,8 +43,8 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: 6
-        spacing: 6
+        anchors.margins: buttonMargin
+        spacing: buttonMargin
         clip: true
 
         Image {
@@ -63,7 +61,7 @@ Rectangle {
         Text {
             id: label
             text: `${toplevel.title}`
-            color: "white"
+            color: textColor
             font.pixelSize: 10
             elide: Text.ElideRight
             anchors.verticalCenter: parent.verticalCenter

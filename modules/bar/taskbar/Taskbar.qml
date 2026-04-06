@@ -5,6 +5,8 @@ import QtQuick
 Item {
     id: root
 
+    height: parent.height
+
     property var groupedWindows: ({})
 
     // max width for a single button
@@ -119,7 +121,6 @@ Item {
     Row {
         id: barRow
         anchors.fill: parent
-        spacing: 2
 
         Repeater {
             model: Object.keys(root.groupedWindows).sort()
@@ -128,7 +129,7 @@ Item {
                 required property string modelData
                 property string appName: modelData
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: 2
+                height: parent.height
 
                 Repeater {
                     model: root.groupedWindows[appName]

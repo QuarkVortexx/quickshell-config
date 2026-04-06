@@ -9,21 +9,11 @@ import QtQuick.Shapes
 
 import qs.util
 
-PanelWindow {
+PopupWindow {
     id: systemPanel
 
     visible: StateStore.systemPanelOpen
     color: "transparent"
-
-    anchors {
-        top: true
-        right: true
-    }
-
-    margins {
-        top: 10
-        right: 10
-    }
 
     implicitWidth: 350
     implicitHeight: systemPanelColumn.implicitHeight + systemPanelColumn.anchors.margins * 2
@@ -37,9 +27,8 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#2A2524"
-        radius: 10
-        border.color: "#3A3534"
+        color: Colors.md3.surface
+        border.color: Qt.lighter(Colors.md3.surface, 2.0)
         border.width: 2
     }
 
@@ -67,8 +56,7 @@ PanelWindow {
 
                 Rectangle {
                     anchors.fill: parent
-                    radius: 3
-                    color: "#373533"
+                    color: "transparent"
                 }
 
                 Shape {
@@ -111,8 +99,7 @@ PanelWindow {
 
                 Rectangle {
                     anchors.fill: parent
-                    radius: 3
-                    color: "#373533"
+                    color: "transparent"
                 }
 
                 Shape {
@@ -155,8 +142,7 @@ PanelWindow {
 
                 Rectangle {
                     anchors.fill: parent
-                    radius: 3
-                    color: "#373533"
+                    color: "transparent"
                 }
 
                 Shape {
@@ -204,8 +190,7 @@ PanelWindow {
 
                 Rectangle {
                     anchors.fill: parent
-                    radius: 3
-                    color: "#373533"
+                    color: "transparent"
                 }
 
                 Shape {

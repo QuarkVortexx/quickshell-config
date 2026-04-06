@@ -5,95 +5,73 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Controls
 
-import "../../util"
+import qs.util
 
-PanelWindow {
+PopupWindow {
     id: trayPanel
 
     readonly property var trayItems: SystemTray.items.values
+    // readonly property var trayItems: [].concat.apply([], Array(2).fill(SystemTray.items.values)) // For testing overflow, adjust the multiplier as needed
+
+    readonly property int buttonScale: 3
+    readonly property int trayButtonSize: 12 * buttonScale
+    readonly property int trayItemsPerRow: Math.min(4, trayItems.length)
 
     visible: StateStore.trayOpen && trayItems.length > 0
     color: "transparent"
 
-    anchors {
-        top: true
-        right: true
-    }
-
-    margins {
-        top: 10
-        right: 10
-    }
-
     // Size adapts to content
-    implicitWidth: trayGrid.implicitWidth + 12;
-    implicitHeight: trayGrid.implicitHeight + 16;
+    implicitWidth: (trayButtonSize * trayItemsPerRow) + trayFlow.anchors.margins * 2 + (trayFlow.spacing * (trayItemsPerRow - 1))
+    implicitHeight: trayFlow.implicitHeight + trayFlow.anchors.margins * 2
 
     Rectangle {
         anchors.fill: parent
-        color: "#2A2524"
-        radius: 10
-        border.color: "#3A3534"
+        color: Colors.md3.surface
+        border.color: Qt.lighter(Colors.md3.surface, 2.0)
         border.width: 2
 
-        Grid {
-            id: trayGrid
-            anchors {
-                fill: parent
-                margins: 8
-            }
-
-            columns: 4
-            spacing: 4
+        Flow {
+            id: trayFlow
+            anchors.fill: parent
+            anchors.margins: trayButtonSize / 4
+            spacing: anchors.margins / 3
+            flow: Flow.LeftToRight
+            layoutDirection: Qt.LeftToRight
 
             Repeater {
                 model: trayItems
 
                 delegate: Rectangle {
                     id: trayButton
-
                     required property var modelData
 
-                    width: 36
-                    height: 36
-                    radius: 6
-                    color: hovered ? "#3A3534" : "#332E2D"
+                    width: trayButtonSize
+                    height: trayButtonSize
+                    color: hovered ? Qt.lighter(Colors.md3.surface, 2.0) : "transparent"
 
                     property bool hovered: false
 
                     Image {
                         anchors.centerIn: parent
                         source: modelData.icon
-                        width: 20
-                        height: 20
+                        width: trayButtonSize * 0.6
+                        height: trayButtonSize * 0.6
                         smooth: true
                     }
 
                     QsMenuAnchor {
                         id: menuAnchor
                         anchor.window: trayPanel
+                        anchor.rect.x: trayButton.x + trayButton.width / 2 + trayFlow.spacing * 2
+                        anchor.rect.y: trayButton.y + trayButton.height / 2 + trayFlow.spacing * 2
                         menu: modelData.menu
 
-                        // Track when menu opens
-                        onOpened: {
-                            trayPanelFocusGrab.active = false   // do not grab while menu is open
-
-                            const p = parent.mapToItem(
-                                trayPanel.contentItem,
-                                trayButton.width / 2,
-                                trayButton.height / 2
-                            )
-
-                            const x = p.x;
-                            const y = p.y;
-
-                            anchor.rect.x = x;
-                            anchor.rect.y = y;
-                        }
-
-                        // Track when menu closes
+                        onOpened: trayPanelFocusGrab.active = false
                         onClosed: {
-                            trayPanelFocusGrab.active = true    // restore focus grab
+                            if (StateStore.trayOpen) {
+                                trayPanelFocusGrab.active = true;
+                            }
+                            StateStore.trayOpen = false;
                         }
                     }
 
@@ -107,12 +85,17 @@ PanelWindow {
                         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
                         onClicked: (mouse) => {
-                            if (mouse.button === Qt.RightButton && modelData.hasMenu) {
+                            if ((mouse.button === Qt.RightButton || modelData.onlyMenu) && modelData.hasMenu) {
                                 menuAnchor.open();
+                                return;
                             } else if (mouse.button === Qt.LeftButton) {
                                 modelData.activate();
+                            } else {
+                                modelData.secondaryActivate();
                             }
+                            StateStore.trayOpen = false;
                         }
+
                         onWheel: wheel => modelData.scroll(wheel.angleDelta.x, wheel.angleDelta.y)
                     }
                 }
@@ -131,8 +114,6 @@ PanelWindow {
         id: trayPanelFocusGrab
         windows: [trayPanel]
         active: false
-        onCleared: () => {
-            StateStore.trayOpen = false;
-        }
+        onCleared: () => StateStore.trayOpen = false;
     }
 }

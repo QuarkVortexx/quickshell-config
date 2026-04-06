@@ -10,15 +10,14 @@ import qs.util
 Item {
     id: networkIndicator
     width: 24
-    height: 18
+    height: 24
 
     readonly property bool connected: NetworkService.connected
     readonly property int wifiSignal: NetworkService.wifiSignal
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
-        color: !connected ? "#ff0000" : "#00ff00"
+        color: !connected ? Colors.md3.error : Colors.md3.primary
     }
 
     Text {
@@ -38,6 +37,6 @@ Item {
         }
         
         font.pixelSize: 15      
-        color: "black"
+        color: !connected ? Colors.md3.on_error : Colors.md3.on_primary
     }
 }

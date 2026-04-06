@@ -10,7 +10,7 @@ import qs.util
 Item {
     id: micIndicator
     width: 24
-    height: 18
+    height: 24
 
     // New property to control clickability
     property bool clickable: true
@@ -28,14 +28,13 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
-        color: !AudioService.sourceReady ? "#ff0" : AudioService.sourceMuted ? "#ff0000" : "#00ff00"
+        color: !AudioService.sourceReady ? Colors.md3.tertiary : AudioService.sourceMuted ? Colors.md3.error : Colors.md3.primary
     }
 
     Text {
         id: label
         text: !AudioService.sourceReady ? "󱦉" : AudioService.sourceMuted ? "󰍭" : "󰍬"
-        color: "black"
+        color: !AudioService.sourceReady ? Colors.md3.on_tertiary : AudioService.sourceMuted ? Colors.md3.on_error : Colors.md3.on_primary
         font.pixelSize: 15
         anchors.centerIn: parent
     }

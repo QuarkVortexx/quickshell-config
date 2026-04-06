@@ -10,8 +10,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "#333"  // Background
-        radius: 5
+        color: Colors.md3.surface_variant
 
         Column {
             anchors.fill: parent
@@ -27,7 +26,7 @@ Item {
                     text: "Notifications: " + NotificationService?.count()
                     font.pixelSize: 20
                     font.weight: Font.Bold
-                    color: "white"
+                    color: Colors.md3.on_surface_variant
                     Layout.alignment: Qt.AlignVCenter
                 }
 
@@ -51,13 +50,12 @@ Item {
 
                     Rectangle {
                         anchors.fill: parent
-                        radius: 9
-                        color: "#00ff00"
+                        color: Colors.md3.primary
                     }
 
                     Text {
                         text: "󰎟"
-                        color: "black"
+                        color: Colors.md3.on_primary
                         font.pixelSize: 28
                         anchors.centerIn: parent
                     }
@@ -79,9 +77,8 @@ Item {
                     delegate: Rectangle {
                         id: notificationRoot
                         width: parent.width
-                        color: "#444"
-                        radius: 8
-                        border.color: "#666"
+                        color: Colors.md3.primary_container
+                        border.color: Qt.lighter(Colors.md3.primary_container, 1.5)
                         border.width: 1
 
                         // Dynamic height
@@ -126,7 +123,7 @@ Item {
                                     visible: (modelData.appName && modelData.appName !== "") || (moduleData.desktopEntry && modelData.desktopEntry !== "")
                                     text: modelData.appName || desktopEntry?.name || modelData.desktopEntry
                                     font.pixelSize: 13
-                                    color: "#ddd"
+                                    color: Colors.md3.on_primary_container
                                     elide: Text.ElideRight
                                     Layout.alignment: Qt.AlignVCenter
                                 }
@@ -151,13 +148,12 @@ Item {
 
                                     Rectangle {
                                         anchors.fill: parent
-                                        radius: 6
-                                        color: "#666"
+                                        color: Colors.md3.primary
                                     }
 
                                     Text {
                                         text: ""
-                                        color: "white"
+                                        color: Colors.md3.on_primary
                                         font.pixelSize: 14
                                         anchors.centerIn: parent
                                     }
@@ -169,7 +165,7 @@ Item {
                                 text: modelData.summary
                                 font.pixelSize: 16
                                 font.weight: Font.Bold
-                                color: "white"
+                                color: Colors.md3.on_primary_container
                                 wrapMode: Text.Wrap
                                 width: parent.width
                             }
@@ -179,7 +175,7 @@ Item {
                                 visible: modelData.body && modelData.body !== ""
                                 text: modelData.body
                                 font.pixelSize: 14
-                                color: "#ddd"
+                                color: Colors.md3.on_primary_container
                                 wrapMode: Text.Wrap
                                 width: parent.width
                             }

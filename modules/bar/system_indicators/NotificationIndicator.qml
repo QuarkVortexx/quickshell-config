@@ -9,7 +9,7 @@ import qs.util
 Item {
     id: notificationIndicator
     implicitWidth: notifRow.implicitWidth + notifRow.anchors.margins * 2
-    height: 18
+    height: 24
 
     readonly property var notifCount: NotificationService.count();
 
@@ -17,8 +17,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
-        color: "#ff0"
+        color: Colors.md3.tertiary
     }
 
     RowLayout {
@@ -32,7 +31,7 @@ Item {
             
             text: "󰂚"
             font.pixelSize: 15      
-            color: "black"
+            color: Colors.md3.on_tertiary
         }
         
         Text {
@@ -42,7 +41,7 @@ Item {
             font.pixelSize: 10
             font.weight: Font.Medium
             
-            color: "black"
+            color: Colors.md3.on_tertiary
         }
     }
 }

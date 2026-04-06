@@ -9,7 +9,7 @@ import qs.util
 Item {
     id: volumeIndicator
     implicitWidth: clickable ? 24 : volumeRow.implicitWidth + volumeRow.anchors.margins*2
-    height: 18
+    height: 24
 
     readonly property bool isReady: AudioService.sinkReady
     readonly property bool isMuted: AudioService.muted
@@ -41,8 +41,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
-        color: !AudioService.sinkReady ? "#ff0" : AudioService.muted ? "#ff0000" : "#00ff00"
+        color: !AudioService.sinkReady ? Colors.md3.tertiary : AudioService.muted ? Colors.md3.error : Colors.md3.primary
     }
 
     RowLayout {
@@ -63,7 +62,7 @@ Item {
             }
             
             font.pixelSize: 15      
-            color: "black"
+            color: !AudioService.sinkReady ? Colors.md3.on_tertiary : AudioService.muted ? Colors.md3.on_error : Colors.md3.on_primary
         }
         
         Text {
@@ -73,7 +72,7 @@ Item {
             font.pixelSize: 10
             font.weight: Font.Medium
             
-            color: "black"
+            color: !AudioService.sinkReady ? Colors.md3.on_tertiary : AudioService.muted ? Colors.md3.on_error : Colors.md3.on_primary
         }
     }
 }

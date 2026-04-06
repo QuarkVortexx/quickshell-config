@@ -1,5 +1,7 @@
 import QtQuick
 
+import qs.util
+
 Item {
     id: customSlider
     width: 200
@@ -10,16 +12,14 @@ Item {
 
     Rectangle { // background track
         anchors.fill: parent
-        color: "#444"
-        radius: height / 2
+        color: Colors.md3.primary_container
     }
 
     Rectangle { // filled portion
         id: fill
         height: parent.height
         width: parent.width * value
-        color: "#9a9a9a"
-        radius: height / 2
+        color: Colors.md3.primary
     }
 
     MouseArea { // handle clicks and drags

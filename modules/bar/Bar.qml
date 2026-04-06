@@ -3,11 +3,18 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 
+import "taskbar"
+import "tray"
+import "system_indicators"
+import "clock"
+
+import qs.util
+
 PanelWindow {
     id: root
 
-    color: "#2B2725" // dark background
-    implicitHeight: 30
+    color: Colors.md3.surface
+    implicitHeight: 32
 
     anchors {
         top: true
@@ -18,8 +25,8 @@ PanelWindow {
     // Main horizontal layout
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 5
-        spacing: 8
+        anchors.top: parent.top
+        spacing: 0
 
         // --- Bar Section (fills remaining space)
         Taskbar {
@@ -27,12 +34,31 @@ PanelWindow {
         }
 
         // --- Tray button (right side)
-        TrayButton { }
+        TrayButton {
+            id: trayButton
+        }
 
-        // --- MicIndicator (right side)
-        SystemIndicators { }
+        // --- System Indicators (right side)
+        SystemIndicators { 
+            id: systemIndicators
+        }
 
         // --- Clock Section (right side)
         Clock { }
+    }
+
+    // Bar popups
+    TrayPanel {
+        id: trayPanel
+        anchor.window: root
+        anchor.rect.x: trayButton.x + trayButton.width / 2 - width / 2
+        anchor.rect.y: root.height + 5
+    }
+
+    SystemPanel {
+        id: systemPanel
+        anchor.window: root
+        anchor.rect.x: root.width - systemIndicators.width / 2 - width / 2
+        anchor.rect.y: root.height + 5
     }
 }

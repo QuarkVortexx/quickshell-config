@@ -4,7 +4,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Hyprland
 
-import "../../util"
+import qs.util
 
 PanelWindow {
     id: launcher
@@ -176,9 +176,9 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#2A2524"
-        radius: 10
-        border.color: "#3A3534"
+        color: Colors.md3.surface
+        radius: 0
+        border.color: Qt.lighter(Colors.md3.surface, 2.0)
         border.width: 2
     }
 
@@ -193,10 +193,10 @@ PanelWindow {
             width: parent.width
             placeholderText: qsTr("   Search")
             font.pixelSize: 20
-            color: "white"
+            color: Colors.md3.on_surface_variant
             background: Rectangle {
-                color: "#3A3534"
-                radius: 5
+                color: Colors.md3.surface_variant
+                radius: 0
             }
             onTextChanged: {
                 query = text
@@ -302,8 +302,8 @@ PanelWindow {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: selected ? "#313131" : "transparent"
-                        radius: 5
+                        color: selected ? Colors.md3.primary : "transparent"
+                        radius: 0
                     }
 
                     Row {
@@ -318,7 +318,7 @@ PanelWindow {
                             width: 4
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
-                            color: isAction ? "#777" : "#666666"
+                            color: selected ? (isAction ? Qt.darker(Colors.md3.on_primary, 1.5) : Qt.lighter(Colors.md3.on_primary, 1.5)) : (isAction ? Qt.darker(Colors.md3.on_surface, 1.5) : Qt.lighter(Colors.md3.on_surface, 1.5))
                         }
 
                         Image {
@@ -341,7 +341,7 @@ PanelWindow {
                                     return modelData.action?.name ?? "Unknown"
                                 }
                             }
-                            color: "white"
+                            color: selected ? Colors.md3.on_primary : Colors.md3.on_surface
                             font.pixelSize: 14
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -355,7 +355,7 @@ PanelWindow {
                                 }
                             }
                             font.pixelSize: 12
-                            color: "gray"
+                            color: selected ? Qt.lighter(Colors.md3.on_primary, 1.5) : Qt.darker(Colors.md3.on_surface, 1.5)
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -363,7 +363,7 @@ PanelWindow {
                             visible: modelData.type === "entry" && modelData.entry.actions.length > 0
                             text: expandedEntries.has(modelData.entry) ? " 󰖰 " : " 󰘖 "
                             font.pixelSize: 15
-                            color: "white"
+                            color: selected ? Colors.md3.on_primary : Colors.md3.on_surface
                             anchors.verticalCenter: parent.verticalCenter
                         }
 

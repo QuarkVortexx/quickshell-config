@@ -29,8 +29,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
-        color: !wifiEnabled ? "#ff0000" : "#00ff00"
+        color: !wifiEnabled ? Colors.md3.error : Colors.md3.primary
     }
 
     Text {
@@ -40,6 +39,6 @@ Item {
         text: wifiText
         
         font.pixelSize: 15      
-        color: "black"
+        color: !wifiEnabled ? Colors.md3.on_error : Colors.md3.on_primary
     }
 }
