@@ -17,7 +17,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: !connected ? Colors.md3.error : Colors.md3.primary
+        color: !connected ? Colors.md3.error : "transparent"
     }
 
     Text {
@@ -37,6 +37,6 @@ Item {
         }
         
         font.pixelSize: 15      
-        color: !connected ? Colors.md3.on_error : Colors.md3.on_primary
+        color: !connected ? Colors.md3.on_error : Colors.md3.on_surface
     }
 }

@@ -17,7 +17,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Colors.md3.tertiary
+        color: Colors.md3.warning
     }
 
     RowLayout {
@@ -31,7 +31,7 @@ Item {
             
             text: "󰂚"
             font.pixelSize: 15      
-            color: Colors.md3.on_tertiary
+            color: Colors.md3.on_warning
         }
         
         Text {
@@ -41,7 +41,7 @@ Item {
             font.pixelSize: 10
             font.weight: Font.Medium
             
-            color: Colors.md3.on_tertiary
+            color: Colors.md3.on_warning
         }
     }
 }

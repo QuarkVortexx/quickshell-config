@@ -28,13 +28,13 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: !AudioService.sourceReady ? Colors.md3.tertiary : AudioService.sourceMuted ? Colors.md3.error : Colors.md3.primary
+        color: !AudioService.sourceReady ? Colors.md3.warning : AudioService.sourceMuted ? Colors.md3.error : "transparent"
     }
 
     Text {
         id: label
         text: !AudioService.sourceReady ? "󱦉" : AudioService.sourceMuted ? "󰍭" : "󰍬"
-        color: !AudioService.sourceReady ? Colors.md3.on_tertiary : AudioService.sourceMuted ? Colors.md3.on_error : Colors.md3.on_primary
+        color: !AudioService.sourceReady ? Colors.md3.on_warning : AudioService.sourceMuted ? Colors.md3.on_error : Colors.md3.on_surface
         font.pixelSize: 15
         anchors.centerIn: parent
     }

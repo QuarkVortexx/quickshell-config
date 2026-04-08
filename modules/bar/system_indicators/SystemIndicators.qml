@@ -18,7 +18,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: mouseArea.containsMouse ? Qt.lighter(Colors.palette.primary50, 1.1) : Colors.palette.primary50
+        color: mouseArea.containsMouse ? Qt.lighter(Colors.md3.surface_container_high, 1.25) : Colors.md3.surface_container_high
     }
 
     RowLayout {

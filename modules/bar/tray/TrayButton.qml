@@ -17,7 +17,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: mouseArea.containsMouse ? Qt.lighter(Colors.palette.primary40, 1.1) : Colors.palette.primary40
+        color: mouseArea.containsMouse ? Qt.lighter(Colors.md3.surface_container, 1.25) : Colors.md3.surface_container
     }
 
     Shape {

@@ -41,7 +41,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: !AudioService.sinkReady ? Colors.md3.tertiary : AudioService.muted ? Colors.md3.error : Colors.md3.primary
+        color: !AudioService.sinkReady ? Colors.md3.warning : AudioService.muted ? Colors.md3.error : "transparent"
     }
 
     RowLayout {
@@ -62,7 +62,7 @@ Item {
             }
             
             font.pixelSize: 15      
-            color: !AudioService.sinkReady ? Colors.md3.on_tertiary : AudioService.muted ? Colors.md3.on_error : Colors.md3.on_primary
+            color: !AudioService.sinkReady ? Colors.md3.on_warning : AudioService.muted ? Colors.md3.on_error : Colors.md3.on_surface
         }
         
         Text {
@@ -72,7 +72,7 @@ Item {
             font.pixelSize: 10
             font.weight: Font.Medium
             
-            color: !AudioService.sinkReady ? Colors.md3.on_tertiary : AudioService.muted ? Colors.md3.on_error : Colors.md3.on_primary
+            color: !AudioService.sinkReady ? Colors.md3.on_warning : AudioService.muted ? Colors.md3.on_error : Colors.md3.on_surface
         }
     }
 }

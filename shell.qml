@@ -5,9 +5,9 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 
+import "util"
 import "modules/bar"
 import "modules/launcher"
-import "util"
 
 Scope {
     id: root

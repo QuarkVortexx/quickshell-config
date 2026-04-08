@@ -255,119 +255,116 @@ PanelWindow {
             }
         }
 
-        ScrollView {
-            id: scrollView
+
+        ListView {
+            id: listView
             width: parent.width
             height: parent.height - searchField.height - parent.spacing
-            ListView {
-                id: listView
-                anchors.fill: parent
-                model: navigationItems
-                clip: true
-                spacing: 0
+            model: navigationItems
+            clip: true
+            spacing: 0
 
-                delegate: Item {
-                    id: launcherButton
-                    width: listView.width
-                    height: 42
+            delegate: Item {
+                id: launcherButton
+                width: listView.width
+                height: 42
 
-                    property bool selected: index === selectedIndex
-                    property bool isAction: modelData.type === "action"
+                property bool selected: index === selectedIndex
+                property bool isAction: modelData.type === "action"
 
-                    MouseArea {
-                        anchors.fill: parent
-                        acceptedButtons: Qt.LeftButton | Qt.RightButton
-                        hoverEnabled: true
-                        onEntered: selectedIndex = index
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+                    hoverEnabled: true
+                    onEntered: selectedIndex = index
 
-                        // Declare "mouse" as a parameter
-                        onClicked: function(mouse) {
-                            if (mouse.button === Qt.LeftButton) {
-                                activateCurrent()
-                            } else if (mouse.button === Qt.RightButton) {
-                                // Toggle expansion for the clicked entry
-                                const item = navigationItems[selectedIndex]
-                                if (item.type === "entry" && item.entry.actions.length > 0) {
-                                    if (expandedEntries.has(item.entry)) {
-                                        expandedEntries.delete(item.entry)
-                                    } else {
-                                        expandedEntries.add(item.entry)
-                                        selectedIndex += 1
-                                    }
-                                    rebuildNavigationItems()
+                    // Declare "mouse" as a parameter
+                    onClicked: function(mouse) {
+                        if (mouse.button === Qt.LeftButton) {
+                            activateCurrent()
+                        } else if (mouse.button === Qt.RightButton) {
+                            // Toggle expansion for the clicked entry
+                            const item = navigationItems[selectedIndex]
+                            if (item.type === "entry" && item.entry.actions.length > 0) {
+                                if (expandedEntries.has(item.entry)) {
+                                    expandedEntries.delete(item.entry)
+                                } else {
+                                    expandedEntries.add(item.entry)
+                                    selectedIndex += 1
                                 }
+                                rebuildNavigationItems()
                             }
                         }
                     }
+                }
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: selected ? Colors.md3.primary : "transparent"
+                    radius: 0
+                }
+
+                Row {
+                    anchors.fill: parent
+                    anchors.leftMargin: 8
+                    anchors.rightMargin: 8
+                    spacing: 8
+                    clip: true
 
                     Rectangle {
-                        anchors.fill: parent
-                        color: selected ? Colors.md3.primary : "transparent"
-                        radius: 0
+                        visible: expandedEntries.has(modelData.entry)
+                        width: 4
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        color: selected ? (isAction ? Qt.darker(Colors.md3.on_primary, 1.5) : Qt.lighter(Colors.md3.on_primary, 1.5)) : (isAction ? Qt.darker(Colors.md3.on_surface, 1.5) : Qt.lighter(Colors.md3.on_surface, 1.5))
                     }
 
-                    Row {
-                        anchors.fill: parent
-                        anchors.leftMargin: 8
-                        anchors.rightMargin: 8
-                        spacing: 8
-                        clip: true
-
-                        Rectangle {
-                            visible: expandedEntries.has(modelData.entry)
-                            width: 4
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            color: selected ? (isAction ? Qt.darker(Colors.md3.on_primary, 1.5) : Qt.lighter(Colors.md3.on_primary, 1.5)) : (isAction ? Qt.darker(Colors.md3.on_surface, 1.5) : Qt.lighter(Colors.md3.on_surface, 1.5))
-                        }
-
-                        Image {
-                            visible: modelData.type === "entry"
-                            id: icon
-                            width: 18
-                            height: 18
-                            smooth: true
-                            anchors.verticalCenter: parent.verticalCenter
-                            source: Quickshell.iconPath(modelData?.entry?.icon ?? "application-x-generic", "foot")
-                            sourceSize: Qt.size(18, 18)
-                            fillMode: Image.PreserveAspectFit
-                        }
-
-                        Text {
-                            text: {
-                                if (modelData.type === "entry") {
-                                     return capitalize(modelData.entry?.name ?? "Unknown")
-                                } else {
-                                    return modelData.action?.name ?? "Unknown"
-                                }
-                            }
-                            color: selected ? Colors.md3.on_primary : Colors.md3.on_surface
-                            font.pixelSize: 14
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-
-                        Text {
-                            text: {
-                                if (modelData.type === "entry") {
-                                    return modelData.entry?.comment ?? ""
-                                } else {
-                                    return ""
-                                }
-                            }
-                            font.pixelSize: 12
-                            color: selected ? Qt.lighter(Colors.md3.on_primary, 1.5) : Qt.darker(Colors.md3.on_surface, 1.5)
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-
-                        Text {
-                            visible: modelData.type === "entry" && modelData.entry.actions.length > 0
-                            text: expandedEntries.has(modelData.entry) ? " 󰖰 " : " 󰘖 "
-                            font.pixelSize: 15
-                            color: selected ? Colors.md3.on_primary : Colors.md3.on_surface
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-
+                    Image {
+                        visible: modelData.type === "entry"
+                        id: icon
+                        width: 18
+                        height: 18
+                        smooth: true
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: Quickshell.iconPath(modelData?.entry?.icon ?? "application-x-generic", "foot")
+                        sourceSize: Qt.size(18, 18)
+                        fillMode: Image.PreserveAspectFit
                     }
+
+                    Text {
+                        text: {
+                            if (modelData.type === "entry") {
+                                    return capitalize(modelData.entry?.name ?? "Unknown")
+                            } else {
+                                return modelData.action?.name ?? "Unknown"
+                            }
+                        }
+                        color: selected ? Colors.md3.on_primary : Colors.md3.on_surface
+                        font.pixelSize: 14
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    Text {
+                        text: {
+                            if (modelData.type === "entry") {
+                                return modelData.entry?.comment ?? ""
+                            } else {
+                                return ""
+                            }
+                        }
+                        font.pixelSize: 12
+                        color: selected ? Qt.lighter(Colors.md3.on_primary, 1.5) : Qt.darker(Colors.md3.on_surface, 1.5)
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    Text {
+                        visible: modelData.type === "entry" && modelData.entry.actions.length > 0
+                        text: expandedEntries.has(modelData.entry) ? " 󰖰 " : " 󰘖 "
+                        font.pixelSize: 15
+                        color: selected ? Colors.md3.on_primary : Colors.md3.on_surface
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
                 }
             }
         }

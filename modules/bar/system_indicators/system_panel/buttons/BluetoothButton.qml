@@ -7,15 +7,11 @@ import qs.util
 
 Item {
     id: bluetoothButton
-    height: 18
-    width: 282
 
     readonly property bool bluetoothPowered: BluetoothService.powered;
     readonly property bool bluetoothConnected: BluetoothService.connected
 
-    readonly property string connectedString: BluetoothService.connectedCount === 1 ? "1 device" : `${BluetoothService.connectedCount} devices`
-
-    readonly property string bluetoothText: bluetoothPowered ? bluetoothConnected ? `Connected: 󰂱 | ${connectedString}` : "Enabled: " : "Disabled: 󰂲"
+    readonly property string connectedString: `${BluetoothService.connectedCount}`
 
     // MouseArea only responds if clickable is true
     MouseArea {
@@ -30,16 +26,40 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: bluetoothPowered ? bluetoothConnected ? Colors.md3.primary : Colors.md3.tertiary : Colors.md3.error
+        color: bluetoothPowered ? bluetoothConnected ? Colors.md3.primary : Colors.md3.warning : Colors.md3.error
     }
 
-    Text {
-        id: bluetoothIcon
+    Row {
         anchors.centerIn: parent
-        
-        text: bluetoothText
-        
-        font.pixelSize: 15      
-        color: bluetoothPowered ? bluetoothConnected ? Colors.md3.on_primary : Colors.md3.on_tertiary : Colors.md3.on_error
+        spacing: 12
+
+        // Icon
+        Text {
+            text: bluetoothPowered ? (bluetoothConnected ? "󰂱" : "") : "󰂲"
+            font.pixelSize: bluetoothButton.height / 3
+            color: bluetoothPowered ? (bluetoothConnected ? Colors.md3.on_primary : Colors.md3.on_warning) : Colors.md3.on_error
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        // Title and Description
+        Column {
+            spacing: 2
+
+            Text {
+                text: "Bluetooth"
+                font.pixelSize: 12
+                font.bold: true
+                color: bluetoothPowered ? (bluetoothConnected ? Colors.md3.on_primary : Colors.md3.on_warning) : Colors.md3.on_error
+            }
+            Text {
+                text: bluetoothPowered
+                    ? (bluetoothConnected
+                        ? `Connected (${connectedString})`
+                        : "Enabled")
+                    : "Disabled"
+                font.pixelSize: 10
+                color: bluetoothPowered ? (bluetoothConnected ? Colors.md3.on_primary : Colors.md3.on_warning) : Colors.md3.on_error
+            }
+        }
     }
 }

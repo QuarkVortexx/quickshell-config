@@ -8,6 +8,7 @@ import "tray"
 import "system_indicators"
 import "system_indicators/system_panel"
 import "clock"
+import "clock/panels"
 
 import qs.util
 
@@ -45,7 +46,9 @@ PanelWindow {
         }
 
         // --- Clock Section (right side)
-        Clock { }
+        Clock { 
+            id: clock
+        }
     }
 
     // Bar popups
@@ -60,6 +63,13 @@ PanelWindow {
         id: systemPanel
         anchor.window: root
         anchor.rect.x: root.width - systemIndicators.width / 2 - width / 2
+        anchor.rect.y: root.height + 5
+    }
+
+    CalendarPanel {
+        id: calendarPanel
+        anchor.window: root
+        anchor.rect.x: root.width - clock.width / 2 - width / 2
         anchor.rect.y: root.height + 5
     }
 }

@@ -68,4 +68,12 @@ Singleton {
             source.audio.muted = !source.audio.muted
         }
     }
+
+    function increaseSourceVolume() {
+        setSourceVolume(sourceVolume + 0.05)
+    }
+
+    function decreaseSourceVolume() {
+        setSourceVolume(sourceVolume - 0.05)
+    }
 }

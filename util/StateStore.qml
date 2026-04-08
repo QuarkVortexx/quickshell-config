@@ -9,4 +9,5 @@ Singleton {
     property bool launcherOpen: false
     property bool trayOpen: false
     property bool systemPanelOpen: false
+    property bool calendarOpen: false
 }

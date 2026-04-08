@@ -24,6 +24,7 @@ Singleton {
 
     // Wi-Fi signal strength (0–100, only valid if wifiActive)
     property int wifiSignal: 0
+    property string wifiName: ""
 
     /* ===== Actions ===== */
 
@@ -134,7 +135,7 @@ Singleton {
     // --- Active Wi-Fi signal strength ---
     Process {
         id: wifiSignalProc
-        command: ["nmcli", "-t", "-f", "IN-USE,SIGNAL", "device", "wifi", "list"]
+        command: ["nmcli", "-t", "-f", "IN-USE,SIGNAL,SSID", "device", "wifi", "list"]
         environment: ({
             LANG: "C.UTF-8",
             LC_ALL: "C.UTF-8"
@@ -143,16 +144,18 @@ Singleton {
         stdout: StdioCollector {
             onStreamFinished: {
                 let strength = 0;
-
+                let name = "";
                 for (const line of text.trim().split("\n")) {
-                    const [inUse, signal] = line.split(":");
+                    const [inUse, signal, ssid] = line.split(":");
                     if (inUse === "*") {
                         strength = parseInt(signal) || 0;
+                        name = ssid || "";
                         break;
                     }
                 }
 
                 root.wifiSignal = strength;
+                root.wifiName = name.trim();
             }
         }
     }

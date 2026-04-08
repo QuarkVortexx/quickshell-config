@@ -20,13 +20,13 @@ Rectangle {
 
     signal clicked(var toplevel)
 
-    color: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? Qt.lighter(Colors.md3.primary_container, 1.15) : Qt.lighter(Colors.md3.secondary_container, 1.15)) 
-        : (toplevel?.activated ? Qt.darker(Colors.md3.primary_container, 1.15) : Qt.darker(Colors.md3.secondary_container, 1.15))) 
-            : (toplevel?.activated ? Colors.md3.primary_container : "transparent")
+    color: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? Qt.lighter(Colors.md3.primary, 1.10) : Qt.lighter(Colors.md3.secondary, 1.10)) 
+        : (toplevel?.activated ? Qt.darker(Colors.md3.primary, 1.10) : Qt.darker(Colors.md3.secondary, 1.10))) 
+            : (toplevel?.activated ? Colors.md3.primary : "transparent")
 
-    property var textColor: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? Qt.lighter(Colors.md3.on_primary_container, 1.15) : Qt.lighter(Colors.md3.on_secondary_container, 1.15)) 
-        : (toplevel?.activated ? Qt.darker(Colors.md3.on_primary_container, 1.15) : Qt.darker(Colors.md3.on_secondary_container, 1.15))) 
-            : (toplevel?.activated ? Colors.md3.on_primary_container : Colors.md3.on_surface)
+    property var textColor: mouseArea.containsMouse ? (mouseArea.pressed ? (toplevel?.activated ? Qt.lighter(Colors.md3.on_primary, 1.10) : Qt.lighter(Colors.md3.on_secondary, 1.10)) 
+        : (toplevel?.activated ? Qt.darker(Colors.md3.on_primary, 1.10) : Qt.darker(Colors.md3.on_secondary, 1.10))) 
+            : (toplevel?.activated ? Colors.md3.on_primary : Colors.md3.on_surface)
 
     property var entry: DesktopEntries.heuristicLookup(toplevel?.appId)
     property var iconPath: Quickshell.iconPath(entry?.icon ?? "application-x-generic") // default icon not always found?
