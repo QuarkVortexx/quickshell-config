@@ -13,7 +13,6 @@ import "indicators"
 Item {
     id: systemIndicators
 
-    implicitHeight: parent.implicitHeight
     implicitWidth: indicatorRow.implicitWidth + indicatorRow.anchors.leftMargin + indicatorRow.anchors.rightMargin
 
     Rectangle {
@@ -24,8 +23,8 @@ Item {
     RowLayout {
         id: indicatorRow
         anchors.fill: parent
-        anchors.leftMargin: parent.implicitHeight / 5
-        anchors.rightMargin: parent.implicitHeight / 5
+        anchors.leftMargin: parent.height / 5
+        anchors.rightMargin: parent.height / 5
         spacing: 3
 
         MicIndicator {

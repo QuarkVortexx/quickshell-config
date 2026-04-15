@@ -9,11 +9,8 @@ import qs.util
 
 Item {
     id: trayButton
-    implicitWidth: parent.implicitHeight
-    implicitHeight: parent.implicitHeight
+    implicitWidth: height
     visible: SystemTray?.items?.values?.length > 0
-
-    rotation: StateStore.trayOpen ? 180 : 0
 
     Rectangle {
         anchors.fill: parent
@@ -24,6 +21,8 @@ Item {
         anchors.centerIn: parent
         width: 12
         height: 5
+
+        rotation: StateStore.trayOpen ? 180 : 0
 
         ShapePath {
             fillColor: "white"

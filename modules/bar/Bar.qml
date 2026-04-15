@@ -9,6 +9,7 @@ import "system_indicators"
 import "system_indicators/system_panel"
 import "clock"
 import "clock/panels"
+import "ws_indicator"
 
 import qs.util
 
@@ -30,24 +31,32 @@ PanelWindow {
         anchors.top: parent.top
         spacing: 0
 
+        WorkspaceIndicator {
+            Layout.fillHeight: true
+        }
+
         // --- Bar Section (fills remaining space)
         Taskbar {
             Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
         // --- Tray button (right side)
         TrayButton {
             id: trayButton
+            Layout.fillHeight: true
         }
 
         // --- System Indicators (right side)
         SystemIndicators { 
             id: systemIndicators
+            Layout.fillHeight: true
         }
 
         // --- Clock Section (right side)
         Clock { 
             id: clock
+            Layout.fillHeight: true
         }
     }
 

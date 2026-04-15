@@ -5,8 +5,6 @@ import QtQuick
 Item {
     id: root
 
-    height: parent.height
-
     property var groupedWindows: ({})
 
     // max width for a single button
