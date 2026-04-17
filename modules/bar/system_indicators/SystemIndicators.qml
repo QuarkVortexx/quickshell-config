@@ -27,13 +27,9 @@ Item {
         anchors.rightMargin: parent.height / 5
         spacing: 3
 
-        MicIndicator {
-            clickable: false
-        }
+        MicIndicator { }
 
-        VolumeIndicator {
-            clickable: false;
-        }
+        VolumeIndicator { }
 
         NetworkIndicator { }
 

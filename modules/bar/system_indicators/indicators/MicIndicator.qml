@@ -12,20 +12,6 @@ Item {
     width: 24
     height: 24
 
-    // New property to control clickability
-    property bool clickable: true
-
-    // MouseArea only responds if clickable is true
-    MouseArea {
-        anchors.fill: parent
-        enabled: micIndicator.clickable
-        onClicked: {
-            AudioService.toggleSourceMute();
-        }
-        hoverEnabled: true
-        cursorShape: micIndicator.clickable ? Qt.PointingHandCursor : Qt.ArrowCursor
-    }
-
     Rectangle {
         anchors.fill: parent
         color: !AudioService.sourceReady ? Colors.md3.warning : AudioService.sourceMuted ? Colors.md3.error : "transparent"
