@@ -8,11 +8,16 @@ import QtQuick.Layouts
 import "util"
 import "modules/bar"
 import "modules/launcher"
+import "modules/lockscreen"
 
 Scope {
     id: root
 
     Bar { }
+
+    Lockscreen {
+        id: lockscreen
+    }
 
     Launcher {
         id: launcher
@@ -29,6 +34,14 @@ Scope {
         }
         function open() {
             StateStore.launcherOpen = true;
+        }
+    }
+
+    IpcHandler {
+        target: "lockscreen"
+
+        function lock() {
+            PamService.locked = true
         }
     }
 }
