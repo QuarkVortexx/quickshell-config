@@ -19,6 +19,8 @@ PanelWindow {
     color: Colors.md3.surface
     implicitHeight: 32
 
+    screen: ScreenManager.primaryScreen
+
     anchors {
         top: true
         left: true

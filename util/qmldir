@@ -7,3 +7,4 @@ singleton BluetoothService BluetoothService.qml
 singleton NotificationService NotificationService.qml
 singleton PamService PamService.qml
 singleton Colors Colors.qml
+singleton ScreenManager ScreenManager.qml

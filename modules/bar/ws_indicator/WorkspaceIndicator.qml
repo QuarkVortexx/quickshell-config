@@ -10,7 +10,7 @@ Item {
 
     Text {
         id: workspaceText
-        text: Hyprland?.focusedWorkspace?.name
+        text: Hyprland?.focusedWorkspace?.name ?? ""
         font.pixelSize: 14
         color: Colors.md3.on_surface
         padding: 8

@@ -10,6 +10,9 @@ WlSessionLock {
     locked: PamService.locked
 
     WlSessionLockSurface {
+        id: surface
+        property bool isPrimary: screen === ScreenManager.primaryScreen
+
         Rectangle {
             anchors.fill: parent
             color: Colors.md3.surface
@@ -23,6 +26,8 @@ WlSessionLock {
                 border.color: Colors.md3.outline
                 border.width: 1
                 radius: 0
+
+                visible: surface.isPrimary
 
                 TextField {
                     id: passwordField
