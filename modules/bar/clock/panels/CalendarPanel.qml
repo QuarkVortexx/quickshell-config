@@ -18,7 +18,7 @@ PopupWindow {
     implicitWidth: calendarGrid.width + calendarContent.anchors.margins * 2
     implicitHeight: calendarContent.implicitHeight + calendarContent.anchors.margins * 2
 
-    property date today: new Date()
+    property date today: TimeService.date
     property int viewMonth: today.getMonth()
     property int viewYear: today.getFullYear()
     property int weekCount: weeksInMonth(viewYear, viewMonth)
