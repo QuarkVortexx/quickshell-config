@@ -31,6 +31,9 @@ PanelWindow {
     // Search query
     property string query: ""
 
+    // ListView scroll position
+    property int listViewPosition: 0
+
     function capitalize(str) {
         if (!str) return ""
         return str.charAt(0).toUpperCase() + str.slice(1)
@@ -76,6 +79,25 @@ PanelWindow {
         StateStore.launcherOpen = false;
     }
 
+    function ensureIndexVisible(visibleIndex) {
+        const rowHeight = 42
+
+        const itemTop = visibleIndex * rowHeight
+        const itemBottom = itemTop + rowHeight
+
+        const viewTop = listView.contentY
+        const viewBottom = listView.contentY + listView.height
+
+        if (itemTop >= viewTop && itemBottom <= viewBottom)
+            return
+
+        if (itemTop < viewTop) {
+            listView.contentY = itemTop
+        } else {
+            listView.contentY = itemBottom - listView.height
+        }
+    }
+
     /*
      * Navigation item format:
      * {
@@ -85,7 +107,7 @@ PanelWindow {
      * }
      */
 
-    function rebuildNavigationItems() {
+    function rebuildNavigationItems(visibleIndex) {
         let entries = []
 
         // 1. Filter + score
@@ -161,14 +183,13 @@ PanelWindow {
             selectedIndex = 0
 
         // 5. Position the listView
-        if (selectedIndex === 0) {
-            listView.positionViewAtBeginning()
-        } else {
-            listView.positionViewAtIndex(selectedIndex, ListView.Contain);
+        if (listView) {
+            listView.contentY = listViewPosition
+            ensureIndexVisible(visibleIndex)
         }
     }
 
-    Component.onCompleted: rebuildNavigationItems()
+    Component.onCompleted: rebuildNavigationItems(0)
 
     /*
      * === UI ===
@@ -202,7 +223,7 @@ PanelWindow {
                 query = text
                 selectedIndex = 0
                 expandedEntries = new Set()
-                rebuildNavigationItems()
+                rebuildNavigationItems(0)
             }
             /*
             * === KEY HANDLING ===
@@ -211,7 +232,7 @@ PanelWindow {
             Keys.onUpPressed: {
                 if (listView.count > 0) {
                     selectedIndex = Math.max(0, selectedIndex - 1);
-                    listView.positionViewAtIndex(selectedIndex, ListView.Contain);
+                    ensureIndexVisible(selectedIndex);
                 }
             }
 
@@ -221,7 +242,7 @@ PanelWindow {
                         navigationItems.length - 1,
                         selectedIndex + 1
                     )
-                    listView.positionViewAtIndex(selectedIndex, ListView.Contain);
+                    ensureIndexVisible(selectedIndex);
                 }
             }
 
@@ -240,6 +261,8 @@ PanelWindow {
                 if (item.entry.actions.length === 0)
                     return
 
+                listViewPosition = listView.contentY
+
                 if (expandedEntries.has(item.entry)) {
                     expandedEntries.delete(item.entry)
                 } else {
@@ -248,7 +271,7 @@ PanelWindow {
                     selectedIndex += 1
                 }
 
-                rebuildNavigationItems()
+                rebuildNavigationItems(selectedIndex)
             }
             Keys.onEscapePressed: {
                 StateStore.launcherOpen = false;
@@ -286,13 +309,15 @@ PanelWindow {
                             // Toggle expansion for the clicked entry
                             const item = navigationItems[selectedIndex]
                             if (item.type === "entry" && item.entry.actions.length > 0) {
+                                listViewPosition = listView.contentY
+
                                 if (expandedEntries.has(item.entry)) {
                                     expandedEntries.delete(item.entry)
                                 } else {
                                     expandedEntries.add(item.entry)
                                     selectedIndex += 1
                                 }
-                                rebuildNavigationItems()
+                                rebuildNavigationItems(selectedIndex)
                             }
                         }
                     }
@@ -380,7 +405,7 @@ PanelWindow {
                 // Reset launcher state
                 expandedEntries = new Set()
                 selectedIndex = 0
-                rebuildNavigationItems()
+                rebuildNavigationItems(0)
 
                 Qt.callLater(() => {
                     if (searchField) {
