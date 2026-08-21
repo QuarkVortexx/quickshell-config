@@ -21,6 +21,8 @@ PanelWindow {
 
     screen: ScreenManager.primaryScreen
 
+    visible: StateStore.barOpen
+
     anchors {
         top: true
         left: true

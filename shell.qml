@@ -13,7 +13,9 @@ import "modules/lockscreen"
 Scope {
     id: root
 
-    Bar { }
+    Bar {
+        id: bar
+    }
 
     Lockscreen {
         id: lockscreen
@@ -34,6 +36,20 @@ Scope {
         }
         function open() {
             StateStore.launcherOpen = true;
+        }
+    }
+
+    IpcHandler {
+        target: "bar"
+
+        function toggle() {
+            StateStore.barOpen = !StateStore.barOpen;
+        }
+        function close() {
+            StateStore.barOpen = false;
+        }
+        function open() {
+            StateStore.barOpen = true;
         }
     }
 
